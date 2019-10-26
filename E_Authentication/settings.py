@@ -121,4 +121,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/registration/'
+
+LOGIN_URL = '/registration/login/'
+
+# Preventing unauthorized access to these sites
+LOGIN_EXEMPT_URLS = (
+    r'^logout/$',
+    r'^registration/reset-password/$',
+    r'^registration/reset-password/done/$',
+    r'^registration/reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+    r'^registration/reset-password/complete/$',
+)
