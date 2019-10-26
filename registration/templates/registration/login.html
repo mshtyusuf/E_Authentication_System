@@ -3,9 +3,11 @@
     <title>Login</title>
 {%endblock%}
 {% block body%}
-    <h2>Please Login here</h2>
+    <div class="jumbotron jumbotron-fluid">
+        <h2>Please Login here</h2>
+    </div>
     <div class="container">
-        <form>
+        <form method="POST">
             {% csrf_token%}
             {{ form.as_p}}
             <button class="btn btn-default" type="submit">Login</button>
