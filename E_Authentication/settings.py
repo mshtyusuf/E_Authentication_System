@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/registration/'
+LOGIN_REDIRECT_URL = ''
 
 LOGIN_URL = '/registration/login/'
 

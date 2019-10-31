@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     First_Name = models.CharField(max_length=30,default='')
     Last_Name = models.CharField(max_length=30,default='')
     Email = models.EmailField()
-    Phone = models.IntegerField()
+    Phone = models.CharField(max_length=12)
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:
