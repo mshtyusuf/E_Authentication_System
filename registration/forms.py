@@ -34,6 +34,8 @@ class RegistrationForm(UserCreationForm):
             user.save()
         return user
 
+
+
 '''
 Not Logged In - Home | About Us | Contact | Login/Register
 When logged in - Dashboard | Logout | Employee detail 
