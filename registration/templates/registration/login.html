@@ -7,7 +7,7 @@
         <h2>Please Login here</h2>
     </div>
     <div class="container">
-        <form method="POST" action="{% views.TwoFactorAuthentication %}">
+        <form method="POST" action="{% urls 'twofactor' %}">
             {% csrf_token%}
             {{ form.as_p}}
             <button class="btn btn-default" type="submit">Login</button>
