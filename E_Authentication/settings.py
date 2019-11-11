@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/registration/TwoFactor/'
+LOGIN_REDIRECT_URL = '/registration/login/'
 
 LOGIN_URL = '/registration/login/'
 

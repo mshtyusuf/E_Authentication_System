@@ -1,14 +1,36 @@
 <html>
-    <head>    
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        {% block head %}
-        {% endblock %}
-    </head>
-    <body>
-        {%block body%}
-        {% endblock %}
+  <head>    
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   {% block head %}
+   {% endblock %}
+  </head>
+  <body>
+    <div class="navbar" >
+      <nav class="navbar navbar-expand-lg navbar-light bg-custom fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span></button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav" >
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"></li><a class="nav-link active" href="{% url 'home' %}">Home</a></li> 
+          <li class="nav-item"><a class="nav-link active" href="{% url 'about' %}">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'contact' %}">Contact</a></li>
+          {% if user.is_authenticated %}
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi {{user.first_name}}</a>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link active" href="{% url 'registration' %}">Sign up</a></li>
+            <li class="nav-item"><a class="nav-link-active" href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+        </div>
+      </nav>
+    </div>
+    {%block body%}
+    {% endblock %}
     </body>
 </html>

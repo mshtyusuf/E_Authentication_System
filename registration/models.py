@@ -9,8 +9,11 @@ class UserProfile(models.Model):
     Email = models.EmailField()
     Phone = models.CharField(max_length=12)
 
+    def __str__(self):
+        return self.user.username
+        
 def create_profile(sender, **kwargs):
     if kwargs['created']:
-        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+        user_profile = User.objects.create(user=kwargs['instance'])
 
 post_save.connect(create_profile, sender=User)

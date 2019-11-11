@@ -1,26 +1,19 @@
 {% extends 'base.html'%}
 {% block head %}
     <title>Registration Form</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/regis.css' %}" />
 {% endblock %}
 {% block body %}
-<div class="container">
-    <h1>Register</h1>
-    <form method="post">
+<div class="jumbotron">
+    <h1>Register here</h1>
+</div>
+<div class="form">
+    <form class="login.form" method="POST">
         {% csrf_token %}
-        <form>
-            First Name:
-            <input type="text" name="firstname"><br>
-            Last Name:
-            <input type="text" name="lastname"><br>
-            Password:
-            <input type="password" name="pwd"><br>
-            Retype Password:
-            <input type="password" name="pwd"><br>
-            Phone No.:
-            <input type="text" name="phone"><br>
-            Email:
-            <input type="email" name="email"><br>
+        {{ form.as_p}}
         <button type="submit">Submit</button>
     </form>
 </div>
+
 {% endblock %}

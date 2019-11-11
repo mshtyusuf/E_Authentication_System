@@ -19,6 +19,11 @@ class RegistrationForm(UserCreationForm):
             'password1',
             'password2'
         )
+        help_texts = {
+            'username':None,
+            'password1':None,
+            'password2':None,
+        }
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
@@ -28,13 +33,10 @@ class RegistrationForm(UserCreationForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
-        user.phone = self.cleaned_data['phone']
+        user.phone = self.cleaned_data['phone']   
 
         if commit:
             user.save()
-        return user
-
-
 
 '''
 Not Logged In - Home | About Us | Contact | Login/Register

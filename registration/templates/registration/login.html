@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block head %}
     <title>Login</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/login.css' %}">>
 {%endblock%}
 {% block body%}
 {% if form.errors %}
@@ -17,14 +19,14 @@
 {% endif %}
 
     <div class="jumbotron jumbotron-fluid">
-        <h2>Please Login here</h2>
+        <h2>Please login here</h2>
     </div>
-    <div class="container">
-            <form name="MY Form"action="/registration/TwoFactor">
-            userid<input type="text"name="text1">
-            <br>password<input typy="password" name="text2">
-            <br>
-            <input type="submit"name="button1"value="login">
+    <div class="form">
+            <form class="login-form" method="POST">
+                {% csrf_token %}
+                Username : <input type="text"name="username"><br>
+                Password : <input type="password" name="password"><br>
+                <input type="submit"name="LoginBtn"value="Login">
             </form>
     </div>
 {% endblock %}
