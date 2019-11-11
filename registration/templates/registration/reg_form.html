@@ -7,7 +7,19 @@
     <h1>Register</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <form>
+            First Name:
+            <input type="text" name="firstname"><br>
+            Last Name:
+            <input type="text" name="lastname"><br>
+            Password:
+            <input type="password" name="pwd"><br>
+            Retype Password:
+            <input type="password" name="pwd"><br>
+            Phone No.:
+            <input type="text" name="phone"><br>
+            Email:
+            <input type="email" name="email"><br>
         <button type="submit">Submit</button>
     </form>
 </div>

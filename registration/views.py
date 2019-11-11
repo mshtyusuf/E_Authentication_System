@@ -18,7 +18,17 @@ def registration(request):
     return render(request, 'registration/reg_form.html',args)
 
 def login(request):
+    if 'text1' in request.GET:
+        message = ' %r' % request.GET['text1']
+    else:
+        message = 'You submitted an empty form.'
+    print(message)
     return render(request,'registration/login.html')
 
 def TwoFactorAuthentication(request):
+    print(request)
     return render(request,'registration/2FA.html')
+
+def OTPAuthentication(request):
+
+    return render(request,'registration/OTP_Auth.html')

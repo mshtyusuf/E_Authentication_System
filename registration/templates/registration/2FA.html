@@ -1,8 +1,19 @@
 {% extends 'base.html'%}
 {%block head%}
     <title>Authentication</title>
-{% end block %}
+{% endblock %}
+
 {%block body %}
-    Authentication using OTP <input type="radio"><br>
-    Authentication using QR Code <input type="radio"><br>
-{% end block %}
+<br><br>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"> <a href="/registration/">Authentication using OTP</a> <br></div>
+    <div class="col-sm-4"></div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">Authentication using QR Code <input type="radio"><br></div>
+    <div class="col-sm-4"></div>
+</div>
+{% endblock %}

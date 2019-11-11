@@ -3,14 +3,28 @@
     <title>Login</title>
 {%endblock%}
 {% block body%}
+{% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
     <div class="jumbotron jumbotron-fluid">
         <h2>Please Login here</h2>
     </div>
     <div class="container">
-        <form method="POST" action="{% urls 'twofactor' %}">
-            {% csrf_token%}
-            {{ form.as_p}}
-            <button class="btn btn-default" type="submit">Login</button>
-        </form>
+            <form name="MY Form"action="/registration/TwoFactor">
+            userid<input type="text"name="text1">
+            <br>password<input typy="password" name="text2">
+            <br>
+            <input type="submit"name="button1"value="login">
+            </form>
     </div>
 {% endblock %}
