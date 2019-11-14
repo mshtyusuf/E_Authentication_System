@@ -5,6 +5,7 @@ from django.contrib.auth.models import User,auth
 from random import randint
 from django.core.mail import send_mail
 from django.conf import settings
+import datetime
 
 
 def registration(request):
@@ -19,15 +20,15 @@ def registration(request):
         if password1==password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,'Username Taken')
-                return render(request,'registration/reg_form.html')
+                return redirect('../registration')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'Email Taken')
-                return render(request,'registration/reg_form.html')
+                return redirect('../registration')
             else:
                 user=User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
                 user.save()
                 print('User created')
-                return redirect('/')
+                return redirect('../')
         else:    
             messages.info(request,'Password not matching')
             return render(request,'registration/reg_form.html')
@@ -73,17 +74,13 @@ def OTPAuthentication(request):
         username = request.session['username']
         password = request.session['password']
         otp = request.session['otp']
-        # print(username)
-        # print(password)
-        # print(OTP2)
-        # print(otp)
         if (str(otp) == str(OTP2)):
             user=auth.authenticate(request,username=username,password=password)
             auth.login(request,user)
             return redirect('../../')
         else:
-            print('Wrong OTP mentioned!!!')
-            return redirect('../login')
+                print('Wrong OTP mentioned!!!')
+                return redirect('../login') 
     else:
         return render(request,'registration/loginwithOTP.html')
 
