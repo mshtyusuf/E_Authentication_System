@@ -22,11 +22,12 @@
         <h2>Please login here</h2>
     </div>
     <div class="form">
-            <form class="login-form" method="POST">
-                {% csrf_token %}
-                Username : <input type="text"name="username"><br>
-                Password : <input type="password" name="password"><br>
-                <input type="submit"name="LoginBtn"value="Login">
-            </form>
+        <form class="login.form" method="POST">
+            {% csrf_token %}
+            Enter username: <input type="text" name="username">
+            Enter password: <input type="password" name="password">
+            <button type="submit" name="LoginBtn1">Login with OTP</button>
+            <button type="submit" name="LoginBtn2">Login with QR</button>
+        </form>
     </div>
 {% endblock %}
