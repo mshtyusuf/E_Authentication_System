@@ -5,18 +5,16 @@ from django.contrib.auth.models import User,auth
 from random import randint
 from django.core.mail import send_mail
 from django.conf import settings
-# from django.contrib.auth.decorators import login_required
 
-otp = 0
-active_user = {}
+
 def registration(request):
     if request.method=='POST':
-        first_name=request.POST.get['first_name']
-        last_name=request.POST.get['last_name']
-        username=request.POST.get['username']
-        password1=request.POST.get['password1']
-        password2=request.POST.get['password2']
-        email=request.POST.get['email']
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        username=request.POST['username']
+        password1=request.POST['password1']
+        password2=request.POST['password2']
+        email=request.POST['email']
 
         if password1==password2:
             if User.objects.filter(username=username).exists():
@@ -39,15 +37,15 @@ def registration(request):
 
 def login(request):
     if request.method=='POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
+        username=request.POST['username']
+        password=request.POST['password']
         user=auth.authenticate(request,username=username,password=password)
         if user is not None:
             user = User.objects.get(username=username)
             user_email = user.email
-            print(user_email)
             if 'LoginBtn1' in request.POST:
                 otp = randint(100000, 999999)
+                print(otp)
                 subject = "Login with OTP"
                 email_from = settings.EMAIL_HOST_USER
                 message = "This is your OTP for logging into our system : " + str(otp)
@@ -56,34 +54,41 @@ def login(request):
                     print('Email was sent successfully')
                     request.session['username']=username
                     request.session['password']=password
-                    return render(request,'registration/loginwithOTP.html')
+                    request.session['otp']=otp
+                    return redirect('../OTP')
                 else:
                     print('Email was not sent successfully')
-                    return redirect('')
+                    return redirect('../login')
             elif 'LoginBtn2' in request.POST:
-                return render(request,'registration/loginwithQR.html')
+                return redirect('../QR')
         else:
             messages.info(request,'Invalid Credentials')
-            return redirect('')
+            return redirect('../login')
     else:
         return render(request,'registration/login.html')
 
 def OTPAuthentication(request):
     if request.method == 'POST':
         OTP2 = request.POST['OTP']
-        print(OTP2)
-        if (otp == OTP2):
-            username = request.session['username']
-            password = request.session['password']
-            print(username)
-            print(password)
-            auth.login(username,password)
-            return redirect('')
+        username = request.session['username']
+        password = request.session['password']
+        otp = request.session['otp']
+        # print(username)
+        # print(password)
+        # print(OTP2)
+        # print(otp)
+        if (str(otp) == str(OTP2)):
+            user=auth.authenticate(request,username=username,password=password)
+            auth.login(request,user)
+            return redirect('../../')
         else:
             print('Wrong OTP mentioned!!!')
-            return redirect('registration/login')
+            return redirect('../login')
     else:
-        return render(request,'registration/OTP_Auth.html')
+        return render(request,'registration/loginwithOTP.html')
+
+def QRAuthentication(request):
+    return render(request,'registration/loginwithQR.html')
 
 def logout(request):
     auth.logout(request)

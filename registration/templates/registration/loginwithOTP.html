@@ -3,11 +3,11 @@
 <title>Login with OTP</title>
 {% endblock %}
 {% block body %}
-<h2>Enter the OTP sent to your registered email ID</h2>
+<h2>Enter the OTP sent to your registered email ID</h2><br>
 
-<form class="login.form" method="POST">
+<form class="login.form" method="POST" action="/registration/OTP/">
     {% csrf_token %}
-    Enter OTP: <input type="number" min="0" name="OTP">
+    Enter OTP: <input type="number" min="0" name="OTP"><br>
     <button type="submit">Submit OTP</button>
 </form>
 {% endblock %}
