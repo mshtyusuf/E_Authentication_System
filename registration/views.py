@@ -49,7 +49,7 @@ def login(request):
                 print(otp)
                 subject = "Login with OTP"
                 email_from = settings.EMAIL_HOST_USER
-                message = "This is your OTP for logging into our system : " + str(otp)
+                message = "Hi,"+ str(user.first_name)+", this is your OTP for logging into our system : " + str(otp)
                 val = send_mail(subject, message, email_from, [user_email])
                 if val:
                     print('Email was sent successfully')
