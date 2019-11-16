@@ -2,9 +2,11 @@
 {% block head %}
     <title>Login</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'registration/login.css' %}">>
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/login.css' %}">
 {%endblock%}
 {% block body%}
+
+
 {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -17,12 +19,9 @@
     <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
-
-    <div class="jumbotron jumbotron-fluid">
-        <h2>Please login here</h2>
-    </div>
     <div class="form">
-        <form class="login.form" method="POST">
+                    <h2>Please login here</h2>
+       <form class="login.form" method="POST">
             {% csrf_token %}
             Enter username: <input type="text" name="username">
             Enter password: <input type="password" name="password">
@@ -30,4 +29,7 @@
             <button type="submit" name="LoginBtn2">Login with QR</button>
         </form>
     </div>
+
+
+
 {% endblock %}
