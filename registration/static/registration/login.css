@@ -1,11 +1,12 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.jumbotron{
-    text-align: center;
-    padding: 50px;
-}
 
+
+h2{
+  text-align: center;
+  padding-bottom: 25px;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -16,10 +17,11 @@
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: 50px auto 100px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -31,6 +33,8 @@
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+  border-radius: 3px;
+
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -45,14 +49,22 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  border-radius: 3px;
 }
 .form button:hover,.form button:active,.form button:focus {
   background: #821618;
+}
+.form:hover{
+  box-shadow:1px 1px 5px 5px #696969;
+
 }
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
+  
 }
 .form .message a {
   color: #4CAF50;
@@ -94,6 +106,5 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
-  background: #edEDED; /* fallback for old browsers */
-}
+
+

@@ -1,13 +1,26 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block head %}
-<title>Employee Manager Contact</title>
-{% endblock%}
+    <title>Registration Form</title>
+    {% load staticfiles %}
+    <link rel = "stylesheet" href="\static\contact.css">
+{% endblock %}
+{% block body %}
+<div class="form">
+    <form class="login.form" method="POST">
+        {% csrf_token %}    
+        <h2>Contact Us</h2>
+        <input type="text" name="first_name" placeholder="First Name"><br>
+        <input type="text" name="last_name" placeholder="Last Name"><br>
+        <input type="email" name="email" placeholder="Email"><br>
+        <input type="text" name="phone" placeholder="Contact No."><br>
+        <textarea  name="comments" maxlength="1000" cols="75" rows="6"></textarea><br>
 
-{%block body%}
-<div class="jumbotron">
-    <div class="container">
-            <h2>I am the contact us page</h2>    
-    </div>
+        <button style="margin-top: 5px" submit">Submit</button>
+    </form>
 </div>
 
-{%endblock%}
+{% for message in messages %}
+<h3>{{message}}</h3>
+{% endfor %}
+
+{% endblock %}
