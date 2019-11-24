@@ -21,7 +21,7 @@
 {% endif %}
     <div class="form">
                     <h2>Please login here</h2>
-       <form class="login.form" method="POST">
+       <form class="login.form" method="POST" id="LoginForm">
             {% csrf_token %}
             Enter username: <input type="text" name="username">
             Enter password: <input type="password" name="password">
@@ -30,6 +30,15 @@
         </form>
     </div>
 
-
+<script>
+    document.getElementById('LoginForm').onkeypress = function(e)
+    {
+        var key = e.charCode || e.keyCode || 0;
+        if(key == 13)
+        {
+            e.preventDefault();
+        }
+    }
+</script>
 
 {% endblock %}

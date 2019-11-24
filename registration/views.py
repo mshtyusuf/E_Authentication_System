@@ -3,11 +3,12 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from random import randint
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
-import datetime
+from django.views.decorators.cache import cache_control
+import qrcode,pyzbar
 
-
+location = "F:/NIIT University/4 Year/Capstone Project 2/Project/"
 def registration(request):
     if request.method=='POST':
         first_name=request.POST['first_name']
@@ -32,7 +33,6 @@ def registration(request):
         else:    
             messages.info(request,'Password not matching')
             return render(request,'registration/reg_form.html')
-        # return redirect('/')
     else:
         return render(request,'registration/reg_form.html')
 
@@ -48,9 +48,9 @@ def login(request):
                 otp = randint(100000, 999999)
                 print(otp)
                 subject = "Login with OTP"
-                email_from = settings.EMAIL_HOST_USER
+                sender = settings.EMAIL_HOST_USER
                 message = "Hi,"+ str(user.first_name)+", this is your OTP for logging into our system : " + str(otp)
-                val = send_mail(subject, message, email_from, [user_email])
+                val = send_mail(subject, message, sender, [user_email])
                 if val:
                     print('Email was sent successfully')
                     request.session['username']=username
@@ -61,7 +61,26 @@ def login(request):
                     print('Email was not sent successfully')
                     return redirect('../login')
             elif 'LoginBtn2' in request.POST:
-                return redirect('../QR')
+                qr = qrcode.QRCode(version=1,error_correction=qrcode.constants.ERROR_CORRECT_H,box_size=5,border=5)
+                qr.add_data(user.username + ' ' + user.password)
+                qr.make(fit=True)
+                img = qr.make_image(fill_color='black', back_color='white')
+                img.save(location+'qrcode.png')
+                print('QR Code generated!!')
+                email_sender = settings.EMAIL_HOST_USER
+                subject = "Login with QR"
+                message = "Hi,"+ str(user.first_name)+", the QR for logging into our system is attached. Please login within 5 minutes."
+                mail = EmailMessage(subject,message,email_sender,[user_email])
+                mail.attach_file(location+'qrcode.png')
+                val = mail.send()
+                if val:
+                    print('Email was sent successfully')
+                    request.session['username']=username
+                    request.session['password']=password
+                    return redirect('../QR')
+                else:
+                    print('Email was not sent successfully')
+                    return redirect('../login')
         else:
             messages.info(request,'Invalid Credentials')
             return redirect('../login')
@@ -85,8 +104,20 @@ def OTPAuthentication(request):
         return render(request,'registration/loginwithOTP.html')
 
 def QRAuthentication(request):
-    return render(request,'registration/loginwithQR.html')
+    if request.method == 'POST':
+        #Take the session variable
+        username = request.session['username']
+        password = request.session['password']
+        
+        #Scan the QR code from webcam
+        #Read data from QR - username and password
+        user=auth.authenticate(request,username=username,password=password)
+        auth.authenticate(request,user)
+        return redirect('../../')
+    else:
+        return render(request,'registration/loginwithQR.html'))
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):
     auth.logout(request)
-    return render(request,'registration/logout.html')
+    return render(redirect,'../')
