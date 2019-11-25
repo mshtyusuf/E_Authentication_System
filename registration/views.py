@@ -108,12 +108,17 @@ def QRAuthentication(request):
         #Take the session variable
         username = request.session['username']
         password = request.session['password']
-        
-        #Scan the QR code from webcam
-        #Read data from QR - username and password
-        user=auth.authenticate(request,username=username,password=password)
-        auth.authenticate(request,user)
-        return redirect('../../')
+
+        #Take the variables from QR code
+        username2 = request.POST['username']
+        password2 = request.POST['password']
+        if str(username)== str(username2) and str(password) ==str(password2):
+            user=auth.authenticate(request,username=username,password=password)
+            auth.authenticate(request,user)
+            return redirect('../../')
+        else:
+            print('Invalid details!!!')
+            return redirect('../login')
     else:
         return render(request,'registration/loginwithQR.html'))
 
