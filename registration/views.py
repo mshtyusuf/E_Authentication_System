@@ -114,15 +114,16 @@ def QRAuthentication(request):
         password2 = request.POST['password']
         if str(username)== str(username2) and str(password) ==str(password2):
             user=auth.authenticate(request,username=username,password=password)
-            auth.authenticate(request,user)
+            auth.login(request,user)
             return redirect('../../')
         else:
             print('Invalid details!!!')
             return redirect('../login')
     else:
-        return render(request,'registration/loginwithQR.html'))
+        return render(request,'registration/loginwithQR.html')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):
     auth.logout(request)
-    return render(redirect,'../')
+    request.session.flush()
+    return redirect('../../')

@@ -1,14 +1,13 @@
-<html>
-    <head>
+{% extends 'base.html' %}
+{% block head %}
 <title>Login with OTP</title>
-</head>
-<body background="https://wpamelia.com/wp-content/uploads/2019/02/astronomy-constellation-dark-998641.jpg" style="color: white; text-align: center;">
-    <h2 style="color: white; align-content: center;">Enter the OTP sent to your registered email ID</h2><br>
+{% endblock %}
+{% block body %}
+<h2 style="color: white; align-content: center;">Enter the OTP sent to your registered email ID</h2><br>
 
 <form class="login.form" method="POST" action="/registration/OTP/">
     {% csrf_token %}
     Enter OTP: <input type="text" name="OTP"><br>
     <button type="submit">Submit OTP</button>
 </form>
-</body>
-</html>
+{% endblock %}

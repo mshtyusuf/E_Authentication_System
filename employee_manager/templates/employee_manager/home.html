@@ -2,10 +2,17 @@
 {% block head %}
 <title>Employee Manager Home</title>
 <link rel = "stylesheet" href="\static\style.css">
-
+<script type="text/javascript">
+    window.history.forward();
+    function noBack() 
+    {
+        window.history.forward();
+    }
+</script>
 {% endblock %}
 
 {% block body %}
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <!-- Slideshow container -->
 <div class="slideshow-container">
 
@@ -73,5 +80,6 @@
     <span class="dot" onclick="currentSlide(3)"></span>
   </div>
 
-
+</div>
+</body>
 {% endblock %}
