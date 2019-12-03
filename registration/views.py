@@ -49,7 +49,7 @@ def login(request):
                 print(otp)
                 subject = "Login with OTP"
                 sender = settings.EMAIL_HOST_USER
-                message = "Hi,"+ str(user.first_name)+", this is your OTP for logging into our system : " + str(otp)
+                message = "Hi,"+ str(user.first_name)+", this is your OTP for logging into our system : " + str(otp) + ". Please login within 5 minutes."
                 val = send_mail(subject, message, sender, [user_email])
                 if val:
                     print('Email was sent successfully')
@@ -62,16 +62,17 @@ def login(request):
                     return redirect('../login')
             elif 'LoginBtn2' in request.POST:
                 qr = qrcode.QRCode(version=1,error_correction=qrcode.constants.ERROR_CORRECT_H,box_size=5,border=5)
-                qr.add_data(user.username + ' ' + user.password)
+                qr.add_data(username + ' ' + password)
                 qr.make(fit=True)
                 img = qr.make_image(fill_color='black', back_color='white')
-                img.save(location+'qrcode.png')
+                img.save(location+'qrcode_'+str(user.username) +'.png')
                 print('QR Code generated!!')
+                
                 email_sender = settings.EMAIL_HOST_USER
                 subject = "Login with QR"
                 message = "Hi,"+ str(user.first_name)+", the QR for logging into our system is attached. Please login within 5 minutes."
                 mail = EmailMessage(subject,message,email_sender,[user_email])
-                mail.attach_file(location+'qrcode.png')
+                mail.attach_file(location+'qrcode_'+str(username)+'.png')
                 val = mail.send()
                 if val:
                     print('Email was sent successfully')
@@ -109,16 +110,18 @@ def QRAuthentication(request):
         username = request.session['username']
         password = request.session['password']
 
-        #Take the variables from QR code
-        username2 = request.POST['username']
-        password2 = request.POST['password']
-        if str(username)== str(username2) and str(password) ==str(password2):
+        #Take the variables from QR Code reader template
+        credentials = request.POST['b']
+        temp = credentials.split(" ")
+        username2 = temp[0]
+        password2 = temp[1]
+        if (str(username)== str(username2) and str(password) ==str(password2)):
             user=auth.authenticate(request,username=username,password=password)
             auth.login(request,user)
             return redirect('../../')
         else:
-            print('Invalid details!!!')
-            return redirect('../login')
+           print('Invalid credentials!!!')
+        return redirect('../login')
     else:
         return render(request,'registration/loginwithQR.html')
 
