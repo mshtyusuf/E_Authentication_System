@@ -133,16 +133,13 @@ LOGIN_URL = '/registration/login/'
 
 # Preventing unauthorized access to these sites
 LOGIN_EXEMPT_URLS = (
-    r'^logout/$',
-    r'^registration/reset-password/$',
-    r'^registration/reset-password/done/$',
-    r'^registration/reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-    r'^registration/reset-password/complete/$',
+    '/registration/QR/',
+    '/registration/OTP/'
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'amazegod5@gmail.com'
-EMAIL_HOST_PASSWORD = '!1qa@2ws'
+# EMAIL_HOST_USER = Put the email address from where you have to send the email
+# EMAIL_HOST_PASSWORD = Put the email address password
