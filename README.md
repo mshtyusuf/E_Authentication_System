@@ -16,3 +16,5 @@ The E Authentication system utilizes two authentication features:
     <li> The user now needs to scan this QR code to the system's webcam and get logged in to the website.</li>
    </ol>
  </ul>
+ 
+ <b> Before running this application on your system, you are requested to change the sender email ID and password in settings.</b>
