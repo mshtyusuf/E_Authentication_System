@@ -89,7 +89,7 @@ def login(request):
         return render(request,'registration/login.html')
 
 def OTPAuthentication(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and (request.session['username'] and request.session['password'] and request.session['otp']):
         OTP2 = request.POST['OTP']
         username = request.session['username']
         password = request.session['password']
@@ -101,11 +101,13 @@ def OTPAuthentication(request):
         else:
                 print('Wrong OTP mentioned!!!')
                 return redirect('../login') 
-    else:
+    elif (request.method == 'GET' and (request.session['username'] and request.session['password'])):
         return render(request,'registration/loginwithOTP.html')
+    else:
+        return redirect('../../')
 
 def QRAuthentication(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and (request.session['username'] and request.session['password'] and request.session['b']):
         #Take the session variable
         username = request.session['username']
         password = request.session['password']
@@ -122,8 +124,10 @@ def QRAuthentication(request):
         else:
            print('Invalid credentials!!!')
         return redirect('../login')
-    else:
+    elif request.method == 'GET' and (request.session['username'] and request.session['password']):
         return render(request,'registration/loginwithQR.html')
+    else:
+        return redirect('../../')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):
