@@ -17,4 +17,4 @@ The E Authentication system utilizes two authentication features:
    </ol>
  </ul>
  
- <b> Before running this application on your system, you are requested to change the sender email ID and password in settings.</b>
+ <b> Before running this application on your system, you are requested to change the sender email ID and password in settings. You are also required to change the location variable value present in views.py file.</b>
