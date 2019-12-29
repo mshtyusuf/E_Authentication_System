@@ -107,7 +107,7 @@ def OTPAuthentication(request):
         return redirect('../../')
 
 def QRAuthentication(request):
-    if request.method == 'POST' and (request.session['username'] and request.session['password'] and request.session['b']):
+    if request.method == 'POST' and (request.session['username'] and request.session['password']):
         #Take the session variable
         username = request.session['username']
         password = request.session['password']
