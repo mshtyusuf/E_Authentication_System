@@ -18,3 +18,5 @@ The E Authentication system utilizes two authentication features:
  </ul>
  
  <b> Before running this application on your system, you are requested to change the sender email ID and password in settings. You are also required to change the location variable value present in views.py file.</b>
+
+<p> Video of the working of this project is available at <a href="https://www.linkedin.com/posts/sclandestined_applicationsecurity-eauth-capstone-activity-6617024893496193024-7-iw"> LinkedIn </a>.</p>
